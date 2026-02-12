@@ -1,16 +1,127 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🎄 Secret Santa Generator
 
-Currently, two official plugins are available:
+A modern, responsive Secret Santa web application built with React and Vite.
+Easily add participants, generate random gift pairs, and export the results to Excel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📌 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* ✅ Add and remove participants dynamically
+* ✅ Upload participants via Excel file
+* ✅ Random Secret Santa pair generation
+* ✅ Prevent self-assignment
+* ✅ Download generated pairs as Excel file
+* ✅ Responsive design (mobile + desktop)
+* ✅ Clean UI with modern styling
+* ✅ Slideshow “How It Works” section
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+* **React**
+* **Vite**
+* **React Router**
+* **XLSX (Excel file parsing & export)**
+* **CSS (Custom design system with variables)**
+* **Vercel (Deployment)**
+
+---
+
+## 📂 Project Structure
+
+```
+secretSantaProject/
+│
+├── public/
+├── src/
+│   ├── components/
+│   ├── assets/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/secret-santa-app.git
+cd secret-santa-app
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run development server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview production build:
+
+```bash
+npm run preview
+```
+
+---
+
+## 📱 Responsive Design
+
+The application is optimized for:
+
+* Desktop browsers
+* Tablets
+* Mobile devices
+
+Tested using Chrome DevTools device simulation.
+
+---
+
+## 🧠 How It Works
+
+1. Enter participant names manually or upload an Excel file.
+2. Click “Generate Pairs”.
+3. The app randomly assigns each participant a receiver.
+4. Download the results as an Excel file.
+
+---
+
+## 📦 Deployment
+
+This project is deployed using **Vercel**.
+
+Every push to the `main` branch triggers automatic deployment.
+
+---
+
+## 🔮 Future Improvements
+
+* Prevent duplicate participant names
+* Add constraints (e.g., avoid assigning specific people to each other)
+* Add email sending functionality
+* Add authentication for private groups
+* Store data using backend (Firebase / Supabase)
+
+---
+
+
+
