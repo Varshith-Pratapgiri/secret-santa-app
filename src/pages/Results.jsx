@@ -1,44 +1,19 @@
 import "../App.css";
-import { useNavigate } from "react-router-dom";
-import * as XLSX from "xlsx";
-import { useState, useCallback } from "react";
+
+import { useResults } from "../hooks/useResults";
 
 export default function Results({ pairs }) {
-  const navigate = useNavigate();
-  const hasPairs = pairs?.length > 0;
-  const [downloading, setDownloading] = useState(false);
-
-  const goBack = () => navigate("/enter-list");
-
-  const handleDownload = useCallback(() => {
-  if (!hasPairs || downloading) return;
-
-  try {
-    setDownloading(true);
-
-    const worksheetData = [
-      ["Giver", "Receiver"],
-      ...pairs.map(({ giver, receiver }) => [giver, receiver]),
-    ];
-
-    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Secret Santa");
-
-    const date = new Date().toISOString().split("T")[0];
-    XLSX.writeFile(workbook, `Secret-Santa-Results-${date}.xlsx`);
-  } catch (err) {
-    console.error("Download failed:", err);
-  } finally {
-    setDownloading(false);
-  }
-}, [pairs, hasPairs, downloading]);
+  const {
+    downloading,
+    goBack,
+    handleDownload
+  } = useResults(pairs);
 
   return (
     <div className="results page-card">
       <h1>Secret Santa Results</h1>
 
-      {!hasPairs ? (
+      {pairs.length === 0 ? (
         <div className="empty-state">
           <p>No pairs generated yet.</p>
           <button onClick={goBack}>Go Back</button>
