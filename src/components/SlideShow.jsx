@@ -1,13 +1,11 @@
-// import addParticipantsImg from "../assets/slideShowImages/AddParticipants.png";
-// import generatePairsImg from "../assets/slideShowImages/GeneratePairs.png";
-// import downloadListImg from "../assets/slideShowImages/downloadList.png";
-// import sendGiftsImg from "../assets/slideShowImages/sendGifts.jpg";
 
 import { useState, useEffect } from "react";
 import "../App.css";
 
 export default function HowItWorks() {
   const [current, setCurrent] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const steps = [
     {
@@ -53,8 +51,29 @@ export default function HowItWorks() {
     if (current > 0) setCurrent(curr => curr-1)
   };
 
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  } 
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  }
+
+  const handleTouchEnd = () =>  {
+    if (!touchStart || !touchEnd) return;
+    let dist = touchStart - touchEnd;
+
+    if (dist > 50) nextStep();
+    if (dist < -50) prevStep();
+  }
+
   return (
-    <div className="slideshow">
+    <div 
+    className="slideshow"
+    onTouchStart={handleTouchStart}
+    onTouchMove={handleTouchMove}
+    onTouchEnd={handleTouchEnd}
+    >
       <div
         className="slider-track"
         style={{ transform: `translateX(-${current * 100}%)` }}

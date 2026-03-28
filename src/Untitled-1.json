@@ -1,0 +1,127 @@
+{
+    "id": "service_referralentry_expB_26mar26",
+    "eligibilty": {
+        "if": [
+            {
+                "or": [
+                    {
+                        "and": [
+                            {
+                                ">=": [
+                                    {
+                                        "var": "userHash"
+                                    },
+                                    26
+                                ]
+                            },
+                            {
+                                "<=": [
+                                    {
+                                        "var": "userHash"
+                                    },
+                                    50
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "and": [
+                            {
+                                ">=": [
+                                    {
+                                        "var": "userHash"
+                                    },
+                                    76
+                                ]
+                            },
+                            {
+                                "<=": [
+                                    {
+                                        "var": "userHash"
+                                    },
+                                    100
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "group": "REFERRALNAVIGATION_REPEATUSERS_EXPB",
+    "category": "SERVICE",
+    "nudgeEvents": [
+        "APP_VERSION_UPDATE",
+        "CURRENT_QUANTITY_CHANGE"
+    ],
+    "rewardCampaignId": "",
+    "systemNudgeInfo": "",
+    "uiInfo": [
+        {
+            "title": {},
+            "componentName": "BOTTOM_TAB_NAVIGATOR",
+            "body": {},
+            "header": {},
+            "subTitle": {},
+            "tagMsg": {},
+            "tagValue": {},
+            "backGroundImage": "",
+            "subImageUrl": "",
+            "version": "",
+            "versionArray": [
+                "v27",
+                "v28",
+                "v29",
+                "v30",
+                "v31",
+                "v32",
+                "v33",
+                "v34",
+                "v35",
+                "v36",
+                "v37"
+            ],
+            "isBanner": true,
+            "calendarDetails": {},
+            "milestoneDetails": {},
+            "knowMore": {},
+            "isLottie": false,
+            "customUIInfoF": {
+                "activeIcon": "https://assets.prod.api.gullak.money/nudges/REFERRALACTIVE.png",
+                "inactiveIcon": "https://assets.prod.api.gullak.money/nudges/REFERRALDISABLE.png",
+                "label": "Refer",
+                "priority": "HIGH"
+            }
+        }
+    ],
+    "nudgePayload": {
+        "flow": "DUMMY",
+        "productId": "NAVIGATE_Referral",
+        "endDate": "0001-01-01T00:00:00Z",
+        "milestoneDetails": {},
+        "disableTime": "0001-01-01T00:00:00Z"
+    },
+    "status": "ACTIVE",
+    "startDate": "2024-07-20T10:00:00+05:30",
+    "endDate": "2032-08-02T00:00:00+05:30",
+    "groupCoolOffPeriod": 0,
+    "screensAllowed": [
+        "HOME"
+    ],
+    "cachingDuration": 96,
+    "uiLimits": {
+        "resetUiLimits": false,
+        "uiLimitsUpdatedAt": "2026-03-26T11:28:42.957540429+05:30",
+        "uiLimitsApplicable": false,
+        "dailyViews": 10,
+        "dailyClicks": 5,
+        "sessionViews": 5,
+        "sessionClicks": 3,
+        "coolOffDuration": 10,
+        "clickCoolOff": -1
+    },
+    "disableAllowed": false,
+    "affectingValues": null,
+    "affectingValueCoolOff": 1,
+    "info": ""
+}
