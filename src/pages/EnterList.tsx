@@ -3,9 +3,16 @@ import "../App.css";
 import { ParticipantItem } from "../components/EnterListItems";
 import { useParticipants } from "../hooks/useParticipants";
 
+import type { Participant } from "../types/participants";
+
+type EnterListProps = {
+  data: Participant[];
+  setData: React.Dispatch<React.SetStateAction<Participant[]>>;
+  handleGenerate: () => void;
+}
 
 
-export default function EnterList({ data, setData, handleGenerate }) {
+export default function EnterList({ data, setData, handleGenerate }: EnterListProps) {
 
   const {
     goBack,
@@ -17,7 +24,7 @@ export default function EnterList({ data, setData, handleGenerate }) {
     handleRemove,
     handleClearAll,
     handleFileUpload
-  } = useParticipants(data, setData);
+  } = useParticipants({ data, setData });
 
 
   const canGenerate = data.length >= 2;
@@ -32,7 +39,7 @@ export default function EnterList({ data, setData, handleGenerate }) {
         <input
           type="text"
           value={input}
-          onChange={(e) => handleInputChange(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e.target.value)}
           placeholder="Enter name..."
           aria-label="Participant name"
           autoFocus
@@ -76,10 +83,11 @@ export default function EnterList({ data, setData, handleGenerate }) {
       )}
    
       <ul>
-        {data.map((name) => (
+        {data.map((participant) => (
           <ParticipantItem 
-          key={name}
-          name={name}
+          key={participant.id}
+          id={participant.id}
+          name={participant.name}
           onRemove={handleRemove}/>
         ))}
       </ul>

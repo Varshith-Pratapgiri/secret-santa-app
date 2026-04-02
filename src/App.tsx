@@ -12,15 +12,22 @@ import Footer from "./components/Footer";
 
 import { generateSecretSantaPairs } from "./utils/SecretSanta";
 
+import type { Participant, Pair } from "./types/participants";
+
+
 export default function App() {
   const navigate = useNavigate();
-  const [data, setData] = useState(() => {
+  const [data, setData] = useState<Participant []>(() => {
     const stored = localStorage.getItem("participants");
-    return stored ? JSON.parse(stored) : [];
+    return stored ? JSON.parse(stored) as Participant[] : [];
   });
-  const [pairs, setPairs] = useState(() => {
+  const [pairs, setPairs] = useState<Pair[]>(() => {
     const stored = localStorage.getItem("pairs");
-    return stored ? JSON.parse(stored) : [];
+    return stored
+  ? (JSON.parse(stored) as Participant[]).filter(
+      (p): p is Participant => typeof p?.name === "string"
+    )
+  : [];
   })
 
   useEffect(() => {
@@ -31,13 +38,13 @@ export default function App() {
     localStorage.setItem("pairs", JSON.stringify(pairs));
   }, [pairs])
 
-  const handleGenerate = () => {
+  const handleGenerate = (): void => {
     try {
-      const pairs = generateSecretSantaPairs(data);
+      const pairs: Pair[] = generateSecretSantaPairs(data);
       setPairs(pairs);
       navigate("/results")
     } catch (error) {
-      alert(error.message)
+      alert(error instanceof Error? error.message : "something went wrong");
     }
   }
 

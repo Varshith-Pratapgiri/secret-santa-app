@@ -6,9 +6,12 @@ import SlideShow from "../components/SlideShow";
 import useChristmasCountDown from "../hooks/useChristmasCountDown";
 import useGetRandomJokes from "../hooks/useGetRandomJokes";
 
+
 export default function HomePage() {
     const navigate = useNavigate();
+
     const { timeLeft, isCountDownLoading } = useChristmasCountDown();
+
     const { joke, isJokeLoading } = useGetRandomJokes();
 
 

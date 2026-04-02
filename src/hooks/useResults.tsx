@@ -3,7 +3,19 @@ import { useNavigate } from "react-router-dom";
 
 import { exportSecretSantaResults } from "../utils/exportSecretSanta";
 
-export function useResults(pairs) {
+import type { Pair } from "../types/participants"; 
+
+type UseResultsProps = {
+  pairs: Pair[];
+}
+
+type UseResultsReturn = {
+  downloading: boolean;
+  goBack: () => void;
+  handleDownload: () => void;
+}
+
+export function useResults({ pairs }: UseResultsProps): UseResultsReturn {
     const navigate = useNavigate();
     const [downloading, setDownloading] = useState(false);
     const goBack = () => navigate("/enter-list");
@@ -16,7 +28,7 @@ export function useResults(pairs) {
           setDownloading(true);
           exportSecretSantaResults(pairs);
         } catch (err) {
-          console.log("Download failed:", err.message);
+          console.error(err instanceof Error ? err.message : err);
         } finally {
           setDownloading(false);
         }

@@ -1,13 +1,20 @@
 import "../App.css";
 
-import { useResults } from "../hooks/useResults";
+import { useResults } from "../hooks/useResults.js";
 
-export default function Results({ pairs }) {
+import type { Pair } from "../types/participants.js";
+
+
+type ResultsProps = {
+  pairs?: Pair[];
+};
+
+export default function Results({ pairs = [] }: ResultsProps) {
   const {
     downloading,
     goBack,
     handleDownload
-  } = useResults(pairs);
+  } = useResults({ pairs });
 
   return (
     <div className="results page-card">
@@ -21,11 +28,11 @@ export default function Results({ pairs }) {
       ) : (
         <>
           <ul className="results-list">
-            {pairs.map(({ giver, receiver }, index) => (
-              <li key={index} className="result-item">
-                <span className="giver">{giver}</span>
+            {pairs.map(({ giver, receiver }) => (
+              <li key={giver.id} className="result-item">
+                <span className="giver">{giver.name}</span>
                 <span className="arrow">→</span>
-                <span className="receiver">{receiver}</span>
+                <span className="receiver">{receiver.name}</span>
               </li>
             ))}
           </ul>

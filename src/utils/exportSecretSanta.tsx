@@ -1,6 +1,8 @@
 import * as XLSX from "xlsx";
 
-export const exportSecretSantaResults = (pairs) => {
+import type { Pair } from "../types/participants";
+
+export const exportSecretSantaResults = (pairs: Pair[]) => {
 
     if (!pairs || pairs.length === 0) {
         throw new Error("Pairs not found");
@@ -8,7 +10,7 @@ export const exportSecretSantaResults = (pairs) => {
 
     const workSheetData = [
         [ "Giver", "Receiver" ],
-        ...pairs.map(({ giver, receiver }) => [giver, receiver])
+        ...pairs.map(({ giver, receiver }) => [giver.name, receiver.name])
     ]
 
     const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);

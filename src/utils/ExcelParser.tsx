@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
 
-export const extractNamesFromExcel = async(file) => {
+export const extractNamesFromExcel = async(file: File): Promise<string[]> => {
     if (!file) throw new Error("file not selected");
 
     if (!file.name.match(/\.(xlsx|xls|csv)$/i)) {
@@ -14,7 +14,7 @@ export const extractNamesFromExcel = async(file) => {
 
         const firstColumn = rows
         .map(row => row.split(",")[0]?.trim())
-        .filter(Boolean)
+        .filter((val): val is string => Boolean(val))
 
         return firstColumn;
     }
@@ -24,13 +24,18 @@ export const extractNamesFromExcel = async(file) => {
     const workBook = XLSX.read(fileData, { type: "array"});
 
     const sheetName = workBook.SheetNames[0];
+    if (!sheetName) {
+        throw new Error("No sheets found in excel file");
+    }
     const workSheet = workBook.Sheets[sheetName];
-
-    const sheetData = XLSX.utils.sheet_to_json(workSheet, { header: 1});
-    const names = sheetData 
+    if (!workSheet) {
+        throw new Error("Worksheet not found");
+    }
+    const sheetData: unknown[][] = XLSX.utils.sheet_to_json(workSheet, { header: 1});
+    const names: string[] = sheetData 
     .slice(1)
     .map((row) => row[0])
-    .filter((cell) => typeof cell === "string" && cell.trim() !== "")
+    .filter((cell): cell is string => typeof cell === "string" && cell.trim() !== "")
     .map((name) => name.trim());
 
     if (names.length === 0) {

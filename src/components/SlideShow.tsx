@@ -2,12 +2,18 @@
 import { useState, useEffect } from "react";
 import "../App.css";
 
-export default function HowItWorks() {
-  const [current, setCurrent] = useState(0);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+type Step = {
+  title: string;
+  description: string;
+  image: string;
+}
 
-  const steps = [
+export default function HowItWorks() {
+  const [current, setCurrent] = useState<number>(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const steps: Step[] = [
     {
       title: "Add Participants",
       description:
@@ -51,16 +57,21 @@ export default function HowItWorks() {
     if (current > 0) setCurrent(curr => curr-1)
   };
 
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    if (!touch) return;
+    setTouchStart(touch.clientX);
   } 
 
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    if (!touch) return;
+    setTouchEnd(touch.clientX);
   }
 
   const handleTouchEnd = () =>  {
-    if (!touchStart || !touchEnd) return;
+    if (touchStart == null || touchEnd == null) return;
+
     let dist = touchStart - touchEnd;
 
     if (dist > 50) nextStep();
